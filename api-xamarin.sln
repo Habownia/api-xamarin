@@ -9,7 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api-xamarin.Android", "api-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api-xamarin.iOS", "api-xamarin.iOS\api-xamarin.iOS.csproj", "{4C3BAAF6-5B4D-4E5D-827B-2366C0B43918}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api-xamarin", "api-xamarin\api-xamarin.csproj", "{35821950-2241-4DED-A0A2-6AC1FCCD631B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api-xamarin", "api-xamarin\api-xamarin.csproj", "{35821950-2241-4DED-A0A2-6AC1FCCD631B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementy rozwiązania", "Elementy rozwiązania", "{A104EC50-5CBA-4E9C-A393-E1FD9312C0A4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
