@@ -5,7 +5,6 @@
 
     <StackLayout>
         <Label>Exchage today</Label>
-        <Button Text="Pobierz dane z API" Clicked="OnGetApiDataClicked" />
         <Label x:Name="apiDataLabel" />
     </StackLayout>
 

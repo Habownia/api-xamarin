@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-
 namespace api_xamarin
 {
     public partial class MainPage : ContentPage
@@ -19,8 +18,9 @@ namespace api_xamarin
             apiHelper = new ApiHelper();
         }
 
-        private async void OnGetApiDataClicked(object sender, EventArgs e)
+        protected override async void OnAppearing()
         {
+            base.OnAppearing();
 
             var exchangeRate = await apiHelper.GetApiDataAsync();
 
@@ -39,7 +39,7 @@ namespace api_xamarin
                 apiDataLabel.Text = dataText;
             }
             else
-            { 
+            {
                 apiDataLabel.Text = "Błąd podczas pobierania danych z API.";
             }
         }
