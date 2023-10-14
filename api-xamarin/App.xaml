@@ -3,6 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="api_xamarin.App">
     <Application.Resources>
+        <!--Global styles-->
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#212121"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#ECEFF1"/>
+        </Style>
+        <!--End global styles-->
+        <Style TargetType="Label" x:Key="titleLabels">
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="#ECEFF1"/>
+            <Setter Property="FontFamily" Value="Consolas, Roboto, Open Sans"/>
+        </Style>
 
+        <Style TargetType="Label" x:Key="title" BasedOn="{StaticResource titleLabels}">
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Padding" Value="10,5"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="titleReload" BasedOn="{StaticResource titleLabels}">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+
+        <Style TargetType="Grid" x:Key="titleBg">
+            <Setter Property="Background" Value="#424242"/>
+        </Style>
+
+        <Style TargetType="Grid" x:Key="bottomGrid">
+            <Setter Property="Background" Value="#424242"/>
+        </Style>
+
+        <Style TargetType="Frame" x:Key="bottomFrame">
+            <Setter Property="Background" Value="#424242"/>
+            <Setter Property="CornerRadius" Value="13"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="15,0,15,15"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="bottomOptions">
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
     </Application.Resources>
 </Application>
