@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+
 
 namespace api_xamarin
 {
@@ -21,30 +23,27 @@ namespace api_xamarin
 
         public async void ShowData()
         {
-            if (!dataLoaded)
+            var exchangeRate = await apiHelper.GetApiDataAsync();
+
+            if (exchangeRate != null)
             {
-                var exchangeRate = await apiHelper.GetApiDataAsync();
+                apiDataLabel.Text = "Ładowanie";
+                // Wyświetl dane z API na etykiecie
+                string dataText = $"No: {exchangeRate.no}\n";
+                dataText += $"Effective Date: {exchangeRate.effectiveDate}\n";
+                dataText += "Rates:\n";
 
-                if (exchangeRate != null)
+                foreach (var rate in exchangeRate.rates)
                 {
-                    apiDataLabel.Text = "Ładowanie";
-                    // Wyświetl dane z API na etykiecie
-                    string dataText = $"No: {exchangeRate.no}\n";
-                    dataText += $"Effective Date: {exchangeRate.effectiveDate}\n";
-                    dataText += "Rates:\n";
-
-                    foreach (var rate in exchangeRate.rates)
-                    {
-                        dataText += $"{rate.currency} ({rate.code}): {rate.mid}\n";
-                    }
-
-                    apiDataLabel.Text = dataText;
-                    dataLoaded = true;
+                    dataText += $"{rate.currency} ({rate.code}): {rate.mid}\n";
                 }
-                else
-                {
-                    apiDataLabel.Text = "Błąd podczas pobierania danych z API.";
-                }
+
+                apiDataLabel.Text = dataText;
+                dataLoaded = true;
+            }
+            else
+            {
+                apiDataLabel.Text = "Błąd podczas pobierania danych z API.";
             }
         }
 
@@ -52,6 +51,16 @@ namespace api_xamarin
         {
             base.OnAppearing();
             ShowData(); // pokazuje dane za raz po załadowaniu
+        }
+
+        private void Reload(object sender, EventArgs e)
+        {
+            ShowData();//Odświeża dane ale to wsm nic nie zmienia bo dane się nie zmieniają co sekunde
+        }
+
+        private void ImageButton_Clicked_1(object sender, EventArgs e)
+        {
+            apiDataLabel.Text = "Błąd podczas pobierania danych z API.";
         }
     }
 }

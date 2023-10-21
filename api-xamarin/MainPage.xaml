@@ -3,38 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="api_xamarin.MainPage">
 
-    <Grid>
+    <Grid x:Name="test">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Style="{StaticResource titleBg}">
+        <Grid Grid.Row="0" Style="{StaticResource bottomGrid}">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
             </Grid.ColumnDefinitions>
             <Label Text="exchage-today" Style="{StaticResource title}" Grid.Column="0" />
-            <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End">
-                <Label Text="Reload" Style="{StaticResource titleReload}"/>
-                <!--TODO dodać przeładowanie-->
-                <Label Text="Info" Style="{StaticResource titleReload}"/>
-                <!--TODO dodać info-->
-            </StackLayout>
+            <ImageButton Grid.Column="2" Style="{StaticResource titleReload}" Clicked="Reload">
+                <ImageButton.Source>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                        <On Platform="Android" Value="Reload2.png" />
+                    </OnPlatform>
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton Grid.Column="3" Style="{StaticResource titleReload}" Clicked="ImageButton_Clicked_1">
+                <ImageButton.Source>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                        <On Platform="Android" Value="Info.png" />
+                    </OnPlatform>
+                </ImageButton.Source>
+            </ImageButton>
+            <!--TODO funkcjonalność-->
         </Grid>
         <Label Grid.Row="1" x:Name="apiDataLabel" />
         <Frame Grid.Row="2" Style="{StaticResource bottomFrame}">
-            <Grid  Style="{StaticResource bottomGrid}">
+            <Grid Style="{StaticResource bottomGrid}" x:Name="bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <!--TODO dodać ikonki i funkcjonalność-->
-                <Label Grid.Column="0"  Text="Option"  Style="{StaticResource bottomOptions}"/>
-                <Label Grid.Column="1"  Text="Option"  Style="{StaticResource bottomOptions}"/>
-                <Label Grid.Column="2"  Text="Option"  Style="{StaticResource bottomOptions}"/>
+                <ImageButton Grid.Column="0" Style="{StaticResource bottomOptions}">
+                    <ImageButton.Source>
+                        <OnPlatform x:TypeArguments="FileImageSource">
+                            <On Platform="Android" Value="Reload2.png" />
+                        </OnPlatform>
+                    </ImageButton.Source>
+                </ImageButton>
+                <ImageButton Grid.Column="1" Style="{StaticResource bottomOptions}">
+                    <ImageButton.Source>
+                        <OnPlatform x:TypeArguments="FileImageSource">
+                            <On Platform="Android" Value="Info.png" />
+                        </OnPlatform>
+                    </ImageButton.Source>
+                </ImageButton>
+                <ImageButton Grid.Column="2" Style="{StaticResource bottomOptions}">
+                    <ImageButton.Source>
+                        <OnPlatform x:TypeArguments="FileImageSource">
+                            <On Platform="Android" Value="Reload.png" />
+                            <!--<On Platform="UWP" Value="ms-appx:///Assets/reload.png" />-->
+                        </OnPlatform>
+                    </ImageButton.Source>
+                </ImageButton>
+
             </Grid>
 
         </Frame>
