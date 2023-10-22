@@ -33,7 +33,9 @@
             </ImageButton>
             <!--TODO funkcjonalność-->
         </Grid>
-        <Label Grid.Row="1" x:Name="apiDataLabel" />
+        <ScrollView Grid.Row="1">
+            <StackLayout x:Name="apiDataContainer" Orientation="Vertical"/>
+        </ScrollView>
         <Frame Grid.Row="2" Style="{StaticResource bottomFrame}">
             <Grid Style="{StaticResource bottomGrid}" x:Name="bottom">
                 <Grid.ColumnDefinitions>

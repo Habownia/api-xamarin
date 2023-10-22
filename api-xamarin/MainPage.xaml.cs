@@ -21,29 +21,58 @@ namespace api_xamarin
             apiHelper = new ApiHelper();
         }
 
+        public Image GetFlag(string currCode)
+        {
+            CurrencyCountryConverter converter = new CurrencyCountryConverter();
+            string countryCode = converter.ConvertCurrencyToCountry(currCode).ToLower();
+            Image image = new Image();
+            image.Source = ImageSource.FromUri(new Uri($"https://flagcdn.com/96x72/{countryCode}.png"));
+            return image;
+        }
+
         public async void ShowData()
         {
+            Label ErrorLabel = new Label();
             var exchangeRate = await apiHelper.GetApiDataAsync();
 
             if (exchangeRate != null)
             {
-                apiDataLabel.Text = "Ładowanie";
+                apiDataContainer.Children.Clear();
+                ErrorLabel.Text = "Ładowanie";
+                apiDataContainer.Children.Add(ErrorLabel);
+
                 // Wyświetl dane z API na etykiecie
-                string dataText = $"No: {exchangeRate.no}\n";
-                dataText += $"Effective Date: {exchangeRate.effectiveDate}\n";
-                dataText += "Rates:\n";
+                apiDataContainer.Children.Clear();
+                Label info = new Label
+                {
+                    Text = $"No: {exchangeRate.no}\n" +
+                    $"Effective Date: {exchangeRate.effectiveDate}\n" +
+                    "Rates:\n",
+                };
+                apiDataContainer.Children.Add(info);
+
 
                 foreach (var rate in exchangeRate.rates)
                 {
-                    dataText += $"{rate.currency} ({rate.code}): {rate.mid}\n";
+                    StackLayout rateContainer = new StackLayout
+                    {
+                        Orientation = StackOrientation.Horizontal,
+                    };
+                    Label dataLabel = new Label
+                    {
+                        Text = $"{rate.currency} ({rate.code}): {rate.mid}"
+                    };
+                    rateContainer.Children.Add(GetFlag(rate.code));
+                    rateContainer.Children.Add(dataLabel);
+                    apiDataContainer.Children.Add(rateContainer);
                 }
-
-                apiDataLabel.Text = dataText;
                 dataLoaded = true;
             }
             else
             {
-                apiDataLabel.Text = "Błąd podczas pobierania danych z API.";
+                apiDataContainer.Children.Clear();
+                ErrorLabel.Text = "Błąd podczas pobierania danych z API.";
+                apiDataContainer.Children.Add(ErrorLabel);
             }
         }
 
@@ -60,7 +89,10 @@ namespace api_xamarin
 
         private void ImageButton_Clicked_1(object sender, EventArgs e)
         {
-            apiDataLabel.Text = "Błąd podczas pobierania danych z API.";
+            apiDataContainer.Children.Clear();
+            Label ErrorLabel = new Label();
+            ErrorLabel.Text = "Błąd podczas pobierania danych z API.";
+            apiDataContainer.Children.Add(ErrorLabel);
         }
     }
 }
