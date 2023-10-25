@@ -16,15 +16,20 @@
                 <ColumnDefinition Width="55"/>
                 <ColumnDefinition Width="55"/>
             </Grid.ColumnDefinitions>
-            <Label Text="exchage-today" Style="{StaticResource title}" Grid.Column="0" />
-            <ImageButton Grid.Column="2" Style="{StaticResource titleReload}" Clicked="Reload">
+            <Label Text="exchage-today" Style="{StaticResource title}" Grid.Column="0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TitleTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <ImageButton Grid.Column="2" Style="{StaticResource titleReload}" Clicked="Reload" x:Name="reloadButton">
                 <ImageButton.Source>
                     <OnPlatform x:TypeArguments="FileImageSource">
                         <On Platform="Android" Value="Reload2.png" />
                     </OnPlatform>
                 </ImageButton.Source>
             </ImageButton>
-            <ImageButton Grid.Column="3" Style="{StaticResource titleReload}" Clicked="ImageButton_Clicked_1">
+            <ImageButton Grid.Column="3" Style="{StaticResource titleReload}" Clicked="Info">
                 <ImageButton.Source>
                     <OnPlatform x:TypeArguments="FileImageSource">
                         <On Platform="Android" Value="Info.png" />
@@ -34,7 +39,7 @@
             <!--TODO funkcjonalność-->
         </Grid>
         <ScrollView Grid.Row="1">
-            <StackLayout x:Name="apiDataContainer" Orientation="Vertical"/>
+            <StackLayout x:Name="apiDataContainer" Orientation="Vertical" Padding="10"/>
         </ScrollView>
         <Frame Grid.Row="2" Style="{StaticResource bottomFrame}">
             <Grid Style="{StaticResource bottomGrid}" x:Name="bottom">
@@ -43,7 +48,6 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <!--TODO dodać ikonki i funkcjonalność-->
                 <ImageButton Grid.Column="0" Style="{StaticResource bottomOptions}">
                     <ImageButton.Source>
                         <OnPlatform x:TypeArguments="FileImageSource">
