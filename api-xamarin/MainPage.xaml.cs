@@ -14,6 +14,17 @@ namespace api_xamarin
     {
         private readonly ApiHelper apiHelper;
         private bool dataLoaded = false;
+        // Słownik publiczny, który zawiera nazwę typu flagi i jego wartość do API
+        static public Dictionary<string, string> flagDesign = new Dictionary<string, string>()
+        {
+            {"Pofalowane", "96x72"},
+            {"Proste", "w80"}
+        };
+        // Ustawia jako domyślne pofalowane flagi
+        private string flagType = flagDesign["Pofalowane"];
+
+
+
 
         public MainPage()
         {
@@ -27,7 +38,7 @@ namespace api_xamarin
             string countryCode = converter.ConvertCurrencyToCountry(currCode).ToLower();
             Image image = new Image
             {
-                Source = ImageSource.FromUri(new Uri($"https://flagcdn.com/96x72/{countryCode}.png"))
+                Source = ImageSource.FromUri(new Uri($"https://flagcdn.com/{flagType}/{countryCode}.png"))
             };
             return image;
         }
@@ -119,6 +130,14 @@ namespace api_xamarin
             ShowData();//Odświeża dane ale to wsm nic nie zmienia bo dane się nie zmieniają co sekunde
         }
 
+        // Wywołuje się po zmianie indexu w pickerze
+        private void OnPickerSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Picker picker = (Picker)sender;
+            string selectedItem = picker.SelectedItem.ToString(); // Wybrany element jako tekst
+            flagDesign.TryGetValue(selectedItem, out flagType); // pobiera dane ze słownika po kluczu i ustawia wartość w zmiennej flagType
+        }
+
 
         private void Info(object sender, EventArgs e)
         {
@@ -135,14 +154,35 @@ namespace api_xamarin
             {
                 Text = "Jest to projekt na zajęcia programowania aplikacji mobilnych. Apilkacja używa połączenia z API Narodowego Banku Polskiego (NBP) i pokazuje deserializację z obiektu JSON na obiekt w języku C#. \n\nKolejnym punktem tego projektu jest stworzenie aplikacji, która jest przystępna wizualnie"
             };
+
             Label SettingsTitle = new Label()
             {
-                Text = "Żeby ta część aplikacji nie była aż tak nudna mamy tutaj jak na razie jedyne ustawienie jakie jest możliwe😅",
+                Text = "# Ustawienia",
+                FontSize = 20,
+                FontAttributes = FontAttributes.Bold,
             };
-            //Todo dodać to ustawienie
+
+            Label SettingsDesc = new Label()
+            {
+                Text = "Wybierz typ flag: ",
+            };
+
+            string[] flagDesignNameSource = flagDesign.Keys.ToArray(); // pobiera tylko klucze słownika i dodaje do pickera
+            Picker Flags = new Picker
+            {
+                ItemsSource = flagDesignNameSource,
+                SelectedIndex = flagType == "96x72" ? 0 : 1,
+                TextColor = Color.White,
+            };
+            Flags.SelectedIndexChanged += OnPickerSelectedIndexChanged;
+
+            StackLayout SettingCont = new StackLayout();
+            SettingCont.Children.Add(SettingsDesc);
+            SettingCont.Children.Add(Flags);
 
             apiDataContainer.Children.Add(Title);
             apiDataContainer.Children.Add(Description);
+            apiDataContainer.Children.Add(SettingCont);
         }
 
         private void TitleTapped(object sender, EventArgs e) => ShowData(); // po kliknięciu w tytuł przenosi cię na stronę "główną"
