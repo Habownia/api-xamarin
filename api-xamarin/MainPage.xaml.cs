@@ -24,8 +24,7 @@ namespace api_xamarin
         private string flagType = flagDesign["Pofalowane"];
 
 
-
-
+        // konstruktor do mainPage'a
         public MainPage()
         {
             InitializeComponent();
@@ -66,6 +65,7 @@ namespace api_xamarin
                 {
                     Orientation = StackOrientation.Horizontal,
                     VerticalOptions = LayoutOptions.Center,
+                    Padding = new Thickness(0, 5)
                 };
 
                 string currName = rate.currency;
@@ -88,7 +88,8 @@ namespace api_xamarin
                 {
                     Text = $"{rate.mid} zł",
                     VerticalTextAlignment = TextAlignment.Center,
-
+                    FontAttributes = FontAttributes.Bold,
+                    FontSize = 18
                 };
 
                 rateContainer.Children.Add(GetFlag(rate.code));
@@ -97,6 +98,8 @@ namespace api_xamarin
                 rateContainer.Children.Add(rateValue);
 
                 container.Children.Add(rateContainer);
+
+                container.Children.Add(new BoxView() { Color = Color.FromHex("#161616"), WidthRequest = 120, HeightRequest = 1 });
             }
             dataLoaded = true;
         }
@@ -138,7 +141,6 @@ namespace api_xamarin
             flagDesign.TryGetValue(selectedItem, out flagType); // pobiera dane ze słownika po kluczu i ustawia wartość w zmiennej flagType
         }
 
-
         private void Info(object sender, EventArgs e)
         {
             apiDataContainer.Children.Clear();
@@ -161,10 +163,12 @@ namespace api_xamarin
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
             };
-
+            #region Ustawienie flagi
             Label SettingsDesc = new Label()
             {
                 Text = "Wybierz typ flag: ",
+                FontSize = 15,
+                VerticalTextAlignment = TextAlignment.Center,
             };
 
             string[] flagDesignNameSource = flagDesign.Keys.ToArray(); // pobiera tylko klucze słownika i dodaje do pickera
@@ -173,15 +177,25 @@ namespace api_xamarin
                 ItemsSource = flagDesignNameSource,
                 SelectedIndex = flagType == "96x72" ? 0 : 1,
                 TextColor = Color.White,
+                FontSize = 15,
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
             };
             Flags.SelectedIndexChanged += OnPickerSelectedIndexChanged;
 
-            StackLayout SettingCont = new StackLayout();
+            StackLayout SettingCont = new StackLayout()
+            {
+                Orientation = StackOrientation.Horizontal,
+                VerticalOptions = LayoutOptions.Center,
+            };
             SettingCont.Children.Add(SettingsDesc);
             SettingCont.Children.Add(Flags);
 
+            #endregion
+
             apiDataContainer.Children.Add(Title);
             apiDataContainer.Children.Add(Description);
+            apiDataContainer.Children.Add(SettingsTitle);
             apiDataContainer.Children.Add(SettingCont);
         }
 
