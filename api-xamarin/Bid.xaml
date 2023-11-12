@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="api_xamarin.Bid">
+    <ContentPage.Content>
+        <Grid x:Name="test">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Style="{StaticResource bottomGrid}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="55"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="exchage-today" Style="{StaticResource title}" Grid.Column="0" />
+            </Grid>
+
+            <ScrollView Grid.Row="1">
+                <StackLayout x:Name="apiDataContainer" Orientation="Vertical" Padding="10"/>
+            </ScrollView>
+
+            <Frame Grid.Row="2" Style="{StaticResource bottomFrame}">
+                <Grid Style="{StaticResource bottomGrid}" x:Name="bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ImageButton Grid.Column="0" Style="{StaticResource bottomOptions}" Clicked="Navigate_Main">
+                        <ImageButton.Source>
+                            <OnPlatform x:TypeArguments="FileImageSource">
+                                <On Platform="Android" Value="Home.png" />
+                            </OnPlatform>
+                        </ImageButton.Source>
+                    </ImageButton>
+                    <ImageButton Grid.Column="1" Style="{StaticResource bottomOptions}">
+                        <ImageButton.Source>
+                            <OnPlatform x:TypeArguments="FileImageSource">
+                                <On Platform="Android" Value="Bid.png" />
+                            </OnPlatform>
+                        </ImageButton.Source>
+                    </ImageButton>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

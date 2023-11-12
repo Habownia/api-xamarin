@@ -7,7 +7,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="70"/>
+            <!--<RowDefinition Height="70"/>-->
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Style="{StaticResource bottomGrid}">
             <Grid.ColumnDefinitions>
@@ -36,11 +36,13 @@
                     </OnPlatform>
                 </ImageButton.Source>
             </ImageButton>
-            <!--TODO funkcjonalność-->
         </Grid>
         <ScrollView Grid.Row="1">
             <StackLayout x:Name="apiDataContainer" Orientation="Vertical" Padding="10"/>
         </ScrollView>
+        
+        <!--Nie zrobie tego w dwa dni plus kod to jest dumbster fire wiec lepiej zakomentowac jakbym to miał robić jeszcze raz to bym się inaczej do tego zabrał :( Ale pomysł jakiś był i to się liczy-->
+        <!--Nie wiem jak to zrobić żeby wygladalo jak spa wiec skopiuje :(--><!--
         <Frame Grid.Row="2" Style="{StaticResource bottomFrame}">
             <Grid Style="{StaticResource bottomGrid}" x:Name="bottom">
                 <Grid.ColumnDefinitions>
@@ -51,29 +53,29 @@
                 <ImageButton Grid.Column="0" Style="{StaticResource bottomOptions}">
                     <ImageButton.Source>
                         <OnPlatform x:TypeArguments="FileImageSource">
-                            <On Platform="Android" Value="Reload2.png" />
+                            <On Platform="Android" Value="Home.png" />
                         </OnPlatform>
                     </ImageButton.Source>
                 </ImageButton>
-                <ImageButton Grid.Column="1" Style="{StaticResource bottomOptions}">
+                <ImageButton Grid.Column="1" Style="{StaticResource bottomOptions}" Clicked="Navigate_Bid">
                     <ImageButton.Source>
                         <OnPlatform x:TypeArguments="FileImageSource">
-                            <On Platform="Android" Value="Info.png" />
+                            <On Platform="Android" Value="Bid.png" />
                         </OnPlatform>
                     </ImageButton.Source>
                 </ImageButton>
-                <ImageButton Grid.Column="2" Style="{StaticResource bottomOptions}">
+                --><!--<ImageButton Grid.Column="2" Style="{StaticResource bottomOptions}">
                     <ImageButton.Source>
                         <OnPlatform x:TypeArguments="FileImageSource">
                             <On Platform="Android" Value="Reload.png" />
-                            <!--<On Platform="UWP" Value="ms-appx:///Assets/reload.png" />-->
+                            --><!--<On Platform="UWP" Value="ms-appx:///Assets/reload.png" />--><!--
                         </OnPlatform>
                     </ImageButton.Source>
-                </ImageButton>
+                </ImageButton>--><!--
 
             </Grid>
 
-        </Frame>
+        </Frame>-->
     </Grid>
 
 </ContentPage>

@@ -12,6 +12,15 @@ namespace api_xamarin
 {
     public partial class MainPage : ContentPage
     {
+        // konstruktor do mainPage'a
+        public MainPage()
+        {
+            InitializeComponent();
+            apiHelper = new ApiHelper();
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
+
+
         private readonly ApiHelper apiHelper;
         private bool dataLoaded = false;
         // Słownik publiczny, który zawiera nazwę typu flagi i jego wartość do API
@@ -22,14 +31,6 @@ namespace api_xamarin
         };
         // Ustawia jako domyślne pofalowane flagi
         private string flagType = flagDesign["Pofalowane"];
-
-
-        // konstruktor do mainPage'a
-        public MainPage()
-        {
-            InitializeComponent();
-            apiHelper = new ApiHelper();
-        }
 
         public Image GetFlag(string currCode)
         {
@@ -53,8 +54,7 @@ namespace api_xamarin
             Label info = new Label
             {
                 Text = $"No: {r.no}\n" +
-                $"Effective Date: {r.effectiveDate}\n" +
-                "Rates:\n",
+                $"Effective Date: {r.effectiveDate}\n"
             };
             container.Children.Add(info);
 
@@ -200,5 +200,9 @@ namespace api_xamarin
         }
 
         private void TitleTapped(object sender, EventArgs e) => ShowData(); // po kliknięciu w tytuł przenosi cię na stronę "główną"
+        public async void Navigate_Bid(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Bid());
+        }
     }
 }
